@@ -22,36 +22,55 @@ public class CinemaWithScanner07 {
             case 1:
             System.out.println("\n ---Input Audience Data---");
             while (true) {
-            System.out.print("Enter Auidience Name: ");
+            System.out.print("Enter Audience Name: ");
             name = sc.nextLine();
-    
+
             System.out.print("Enter Seat Row Number (1-5): ");
             row = sc.nextInt();
-    
+
             System.out.print("Enter Seat Column Number(1-7): ");
             column = sc.nextInt();
             sc.nextLine();
             
             if (row < 1 || row > 5 || column < 1 || column > 7) {
                 System.out.println("Invalid row or column. Please try again");
-                continue;
+                System.out.print("Enter Seat Row Number (1-5): ");
+                row = sc.nextInt();
+                System.out.print("Enter Seat Column Number(1-7): ");
+                column = sc.nextInt();
+                sc.nextLine();
+                audience[row - 1][column - 1] = name;
             }
 
-            audience[row - 1][column - 1] = name;
-
-            System.out.print("Are there any other audiences to be added? (y/n): ");
-            next =sc.nextLine();
-            
-            if (next.equalsIgnoreCase("n")) {
-                break;
+            else if (audience[row-1][column-1] != null) {
+                System.out.println("The seat is already booked. Please choose a different seat.");
+                System.out.print("Enter Seat Row Number (1-5): ");
+                row = sc.nextInt();
+                System.out.print("Enter Seat Column Number(1-7): ");
+                column = sc.nextInt();
+                sc.nextLine();
+                audience[row - 1][column - 1] = name;
             }
+        
+                audience[row - 1][column - 1] = name;
+                System.out.println("YEAY! YOUR BOOKED IS SUCCESS! ^_^");
+                System.out.print("Are there any other audiences to be added? (y/n): ");
+                next = sc.nextLine();
+                
+                if (next.equalsIgnoreCase("n")) {
+                    break;
+                }
+
         }
             break;
 
             case 2: 
             System.out.println("\n ----- Audience List -----");
             for (int i=0; i<audience.length; i++) {
-                for (int j = 0; j < audience[i].length; j++){
+                for (int j=0; j<audience[i].length; j++)
+                    if (audience[i][j]==null) {
+                        System.out.print("*** \t");
+                    } else {
                     System.out.print(audience[i][j] + "\t");
                 }
                 System.out.println();
